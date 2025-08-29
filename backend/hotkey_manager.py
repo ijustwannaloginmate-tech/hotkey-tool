@@ -57,6 +57,9 @@ class HotkeyManager:
             self.app_mappings[hotkey] = mapping
             logger.info(f"Added hotkey mapping: {hotkey} -> {app_name} ({action})")
             
+            # Save configuration
+            self.save_configuration()
+            
             # If hotkeys are already running, register this new one
             if self.is_running:
                 self._register_single_hotkey(hotkey, mapping)
