@@ -101,3 +101,87 @@
 #====================================================================================================
 # Testing Data - Main Agent and testing sub agent both should log testing data below this section
 #====================================================================================================
+
+user_problem_statement: "A program that can reduce and increase the volume of a specific app with hotkeys. For example, I'm playing CS2 and I want to reduce the sound of Spotify with a click of a button."
+
+backend:
+  - task: "Windows Audio Session API Integration"
+    implemented: false
+    working: "NA"
+    file: "audio_controller.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: "NA"
+        agent: "main"
+        comment: "Planning to implement Windows Audio Session API using pycaw library"
+
+  - task: "Application Process Detection"
+    implemented: false
+    working: "NA"
+    file: "app_detector.py" 
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: "NA"
+        agent: "main"
+        comment: "Need to detect running applications and their audio sessions"
+
+  - task: "Global Hotkey Registration"
+    implemented: false
+    working: "NA"
+    file: "hotkey_manager.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: "NA"
+        agent: "main"
+        comment: "Need to register system-wide hotkeys for volume control"
+
+frontend:
+  - task: "System Tray Interface"
+    implemented: false
+    working: "NA"
+    file: "tray_interface.py"
+    stuck_count: 0
+    priority: "medium"
+    needs_retesting: true
+    status_history:
+      - working: "NA"
+        agent: "main"
+        comment: "System tray icon for app access and configuration"
+
+  - task: "Configuration GUI"
+    implemented: false
+    working: "NA"
+    file: "config_gui.py"
+    stuck_count: 0
+    priority: "medium"
+    needs_retesting: true
+    status_history:
+      - working: "NA"
+        agent: "main"
+        comment: "GUI for setting up hotkeys and application mappings"
+
+metadata:
+  created_by: "main_agent"
+  version: "1.0"
+  test_sequence: 0
+  run_ui: false
+  app_type: "desktop_windows"
+
+test_plan:
+  current_focus:
+    - "Windows Audio Session API Integration"
+    - "Application Process Detection"
+    - "Global Hotkey Registration"
+  stuck_tasks: []
+  test_all: false
+  test_priority: "high_first"
+
+agent_communication:
+  - agent: "main"
+    message: "Restructuring project from web app template to Windows desktop application for volume control with hotkeys. Will implement core audio control functionality first."
