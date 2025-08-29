@@ -75,6 +75,9 @@ class HotkeyManager:
             if hotkey in self.app_mappings:
                 del self.app_mappings[hotkey]
                 
+                # Save configuration
+                self.save_configuration()
+                
                 # If hotkeys are running, unregister this one
                 if self.is_running:
                     keyboard.remove_hotkey(hotkey)
