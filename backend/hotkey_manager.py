@@ -23,15 +23,24 @@ class HotkeyManager:
         self.is_running = False
         self.hotkey_thread = None
         
+        # Configuration file path
+        self.config_file = Path("hotkey_config.json")
+        
         # Default hotkey mappings
         self.default_hotkeys = {
-            'ctrl+shift+f1': {'app': 'spotify.exe', 'action': 'decrease'},
-            'ctrl+shift+f2': {'app': 'spotify.exe', 'action': 'increase'},
-            'ctrl+shift+f3': {'app': 'chrome.exe', 'action': 'decrease'},
-            'ctrl+shift+f4': {'app': 'chrome.exe', 'action': 'increase'},
-            'ctrl+shift+f5': {'app': 'discord.exe', 'action': 'decrease'},
-            'ctrl+shift+f6': {'app': 'discord.exe', 'action': 'increase'},
+            'ctrl+shift+f1': {'app': 'Spotify.exe', 'action': 'decrease'},
+            'ctrl+shift+f2': {'app': 'Spotify.exe', 'action': 'increase'},
+            'ctrl+shift+f3': {'app': 'Spotify.exe', 'action': 'toggle_mute'},
+            'ctrl+shift+f4': {'app': 'chrome.exe', 'action': 'decrease'},
+            'ctrl+shift+f5': {'app': 'chrome.exe', 'action': 'increase'},
+            'ctrl+shift+f6': {'app': 'chrome.exe', 'action': 'toggle_mute'},
+            'ctrl+shift+f7': {'app': 'discord.exe', 'action': 'decrease'},
+            'ctrl+shift+f8': {'app': 'discord.exe', 'action': 'increase'},
+            'ctrl+shift+f9': {'app': 'discord.exe', 'action': 'toggle_mute'},
         }
+        
+        # Load saved configuration
+        self.load_configuration()
     
     def set_audio_controller(self, controller):
         """Set the audio controller instance"""
