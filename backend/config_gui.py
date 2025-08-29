@@ -290,23 +290,38 @@ class ConfigGUI:
     
     def on_closing(self):
         """Handle window closing"""
-        self.window_open = False
-        if self.root:
-            self.root.destroy()
-            self.root = None
+        try:
+            self.window_open = False
+            if self.root:
+                self.root.withdraw()  # Hide instead of destroy
+                logger.info("Configuration window hidden")
+        except Exception as e:
+            logger.error(f"Error hiding configuration window: {e}")
     
     def show(self):
         """Show the configuration window"""
         def run_gui():
-            self.create_window()
-            self.root.mainloop()
+            if not self.root:
+                self.create_window()
+            else:
+                # Refresh data and show existing window
+                self.refresh_data()
+                self.root.deiconify()  # Show the window
+                self.root.lift()
+                self.root.attributes('-topmost', True)
+                self.root.attributes('-topmost', False)
+            
+            if self.root:
+                self.root.mainloop()
         
         if not self.window_open:
+            self.window_open = True
             gui_thread = threading.Thread(target=run_gui, daemon=True)
             gui_thread.start()
         else:
             # Bring existing window to front
             if self.root:
+                self.root.deiconify()
                 self.root.lift()
                 self.root.attributes('-topmost', True)
                 self.root.attributes('-topmost', False)
