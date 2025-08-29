@@ -229,6 +229,49 @@ class HotkeyManager:
         except Exception as e:
             logger.error(f"Invalid hotkey format '{hotkey}': {e}")
             return False
+    
+    def save_configuration(self):
+        """Save current hotkey configuration to file"""
+        try:
+            config_data = {
+                'app_mappings': self.app_mappings,
+                'version': '1.0'
+            }
+            
+            with open(self.config_file, 'w') as f:
+                json.dump(config_data, f, indent=2)
+            
+            logger.info(f"Configuration saved to {self.config_file}")
+            return True
+        except Exception as e:
+            logger.error(f"Error saving configuration: {e}")
+            return False
+    
+    def load_configuration(self):
+        """Load hotkey configuration from file"""
+        try:
+            if self.config_file.exists():
+                with open(self.config_file, 'r') as f:
+                    config_data = json.load(f)
+                
+                # Load mappings
+                if 'app_mappings' in config_data:
+                    self.app_mappings = config_data['app_mappings']
+                    logger.info(f"Loaded {len(self.app_mappings)} hotkey mappings from {self.config_file}")
+                else:
+                    logger.info("No saved mappings found, using defaults")
+                    self.load_default_mappings()
+                
+                return True
+            else:
+                logger.info("No configuration file found, using defaults")
+                self.load_default_mappings()
+                return True
+        except Exception as e:
+            logger.error(f"Error loading configuration: {e}")
+            logger.info("Loading default mappings instead")
+            self.load_default_mappings()
+            return False
 
 # Test the hotkey manager
 if __name__ == "__main__":
