@@ -46,32 +46,31 @@ class HotVolumeApp:
         """Set up default hotkey mappings"""
         logger.info("Setting up default hotkeys...")
         
-        default_mappings = [
-            # Spotify controls
-            ('ctrl+shift+f1', 'spotify.exe', 'decrease', 0.1),
-            ('ctrl+shift+f2', 'spotify.exe', 'increase', 0.1),
-            ('ctrl+shift+f3', 'spotify.exe', 'toggle_mute', 0.1),
+        # Don't overwrite existing saved configurations
+        if not self.hotkey_manager.app_mappings:
+            default_mappings = [
+                # Spotify controls (updated to use capital S)
+                ('ctrl+shift+f1', 'Spotify.exe', 'decrease', 0.1),
+                ('ctrl+shift+f2', 'Spotify.exe', 'increase', 0.1),
+                ('ctrl+shift+f3', 'Spotify.exe', 'toggle_mute', 0.1),
+                
+                # Chrome/Browser controls
+                ('ctrl+shift+f4', 'chrome.exe', 'decrease', 0.1),
+                ('ctrl+shift+f5', 'chrome.exe', 'increase', 0.1),
+                ('ctrl+shift+f6', 'chrome.exe', 'toggle_mute', 0.1),
+                
+                # Discord controls
+                ('ctrl+shift+f7', 'discord.exe', 'decrease', 0.1),
+                ('ctrl+shift+f8', 'discord.exe', 'increase', 0.1),
+                ('ctrl+shift+f9', 'discord.exe', 'toggle_mute', 0.1),
+            ]
             
-            # Chrome/Browser controls
-            ('ctrl+shift+f4', 'chrome.exe', 'decrease', 0.1),
-            ('ctrl+shift+f5', 'chrome.exe', 'increase', 0.1),
-            ('ctrl+shift+f6', 'chrome.exe', 'toggle_mute', 0.1),
-            
-            # Discord controls
-            ('ctrl+shift+f7', 'discord.exe', 'decrease', 0.1),
-            ('ctrl+shift+f8', 'discord.exe', 'increase', 0.1),
-            ('ctrl+shift+f9', 'discord.exe', 'toggle_mute', 0.1),
-            
-            # Game controls (CS2)
-            ('ctrl+shift+f10', 'cs2.exe', 'decrease', 0.1),
-            ('ctrl+shift+f11', 'cs2.exe', 'increase', 0.1),
-            ('ctrl+shift+f12', 'cs2.exe', 'toggle_mute', 0.1),
-        ]
-        
-        for hotkey, app, action, step in default_mappings:
-            success = self.hotkey_manager.add_hotkey_mapping(hotkey, app, action, step)
-            if success:
-                logger.info(f"Added default hotkey: {hotkey} -> {app} ({action})")
+            for hotkey, app, action, step in default_mappings:
+                success = self.hotkey_manager.add_hotkey_mapping(hotkey, app, action, step)
+                if success:
+                    logger.info(f"Added default hotkey: {hotkey} -> {app} ({action})")
+        else:
+            logger.info("Using existing saved hotkey configuration")
     
     def config_callback(self):
         """Callback to open configuration GUI"""
